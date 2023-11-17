@@ -4,6 +4,16 @@ namespace hamnet::ip {
 
 address_v6::address_v6() noexcept { addr_ = in6addr_any; }
 
+address_v6::address_v6(const char *str) noexcept {
+  inet_pton(AF_INET6, str, &addr_);
+}
+
+address_v6::address_v6(std::string_view str) noexcept
+    : address_v6(str.data()) {}
+
+address_v6::address_v6(const std::string &str) noexcept
+    : address_v6(str.c_str()) {}
+
 std::string address_v6::to_string() const {
   char str[INET6_ADDRSTRLEN];
   inet_ntop(AF_INET6, &addr_, str, INET6_ADDRSTRLEN);

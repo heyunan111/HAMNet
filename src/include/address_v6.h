@@ -11,6 +11,9 @@ namespace hamnet::ip {
 class address_v6 {
 public:
   address_v6() noexcept;
+  address_v6(const char *str) noexcept;
+  address_v6(std::string_view str) noexcept;
+  address_v6(const std::string &str) noexcept;
 
   std::string to_string() const;
   static address_v6 make_address_v6(const char *str);

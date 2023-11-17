@@ -11,6 +11,9 @@ namespace hamnet::ip {
 class address_v4 {
 public:
   address_v4() noexcept;
+  address_v4(const char *str) noexcept;
+  address_v4(std::string_view str) noexcept;
+  address_v4(const std::string &str) noexcept;
 
   std::string to_string() const;
   static address_v4 make_address_v4(const char *str);
