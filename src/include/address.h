@@ -1,11 +1,69 @@
 #pragma once
 
-#include <address_v4.h>
-#include <address_v6.h>
+#include <arpa/inet.h>
+#include <netinet/in.h>
+#include <string>
 #include <string_view>
 #include <variant>
-
 namespace hamnet::ip {
+
+// 对于 sockaddr_in.sinaddr 的封装
+class address_v4 {
+public:
+  address_v4() noexcept;
+  address_v4(const char *str);
+  address_v4(std::string_view str);
+  address_v4(const std::string &str);
+
+  std::string to_string() const;
+  static address_v4 make_address_v4(const char *str);
+  static address_v4 make_address_v4(std::string_view str);
+  static address_v4 make_address_v4(const std::string &str);
+
+  static address_v4 any() noexcept;
+
+  friend bool operator<(const address_v4 &lhs, const address_v4 &rhs);
+
+  friend bool operator>(const address_v4 &lhs, const address_v4 &rhs);
+
+  friend bool operator==(const address_v4 &lhs, const address_v4 &rhs);
+
+  friend bool operator<=(const address_v4 &lhs, const address_v4 &rhs);
+
+  friend bool operator>=(const address_v4 &lhs, const address_v4 &rhs);
+
+private:
+  in_addr addr_;
+};
+
+// 对于 sockaddr_in6.sin6_addr 的封装
+class address_v6 {
+public:
+  address_v6() noexcept;
+  address_v6(const char *str);
+  address_v6(std::string_view str);
+  address_v6(const std::string &str);
+
+  std::string to_string() const;
+  static address_v6 make_address_v6(const char *str);
+  static address_v6 make_address_v6(std::string_view str);
+  static address_v6 make_address_v6(const std::string &str);
+
+  static address_v6 any() noexcept;
+
+  friend bool operator<(const address_v6 &lhs, const address_v6 &rhs);
+
+  friend bool operator>(const address_v6 &lhs, const address_v6 &rhs);
+
+  friend bool operator==(const address_v6 &lhs, const address_v6 &rhs);
+
+  friend bool operator<=(const address_v6 &lhs, const address_v6 &rhs);
+
+  friend bool operator>=(const address_v6 &lhs, const address_v6 &rhs);
+
+private:
+  in6_addr addr_;
+};
 
 class address {
 public:
